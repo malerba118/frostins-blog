@@ -8,7 +8,7 @@ const InlineCode: FC<InlineCodeProps> = ({ ...props }) => {
     <Code
       verticalAlign="baseline"
       bg="whiteAlpha.100"
-      h="7"
+      h="30px"
       px={2}
       rounded="md"
       {...props}

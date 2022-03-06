@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Button, Flex, Stack, Tag } from "@chakra-ui/react";
+import { Button, Flex, Stack, Tag, Icon } from "@chakra-ui/react";
 import {
   SandpackThemeProvider,
   useSandpack,
@@ -15,6 +15,7 @@ import {
   getSyntaxHighlight,
 } from "./utils";
 import { Box } from "@chakra-ui/react";
+import { RiFileEditLine } from "react-icons/ri";
 
 interface CodeBlockProps {
   path: string;
@@ -63,7 +64,7 @@ const CodeBlock: FC<CodeBlockProps> = ({
       rounded="lg"
       spacing={-2}
       w="100%"
-      my={6}
+      my={5}
     >
       <Flex p={2} justifyContent="space-between">
         <Tag
@@ -76,14 +77,16 @@ const CodeBlock: FC<CodeBlockProps> = ({
           {formatFilePath(path)}
         </Tag>
         <Button
-          colorScheme="purple"
+          colorScheme="whiteAlpha"
           size="xs"
+          color="orange.200"
           onClick={() => {
             sandpack.openFile(path);
             sandpack.updateFile(path, code || "");
           }}
         >
-          Apply Changes
+          <Icon alignSelf="center" fontSize="md" as={RiFileEditLine} mr="1" />{" "}
+          Apply to Sandbox
         </Button>
       </Flex>
       <Box

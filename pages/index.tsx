@@ -8,8 +8,12 @@ import ReorderList from "../posts/reorder-list.mdx";
 import CodeBlock from "../components/CodeBlock";
 
 const mdxComponents = {
-  h1: (props: any) => <Heading mt={8} mb={4} size="2xl" {...props} />,
-  h2: (props: any) => <Heading mt={8} mb={2} size="lg" {...props} />,
+  h1: (props: any) => (
+    <Heading fontWeight="800" mt={8} mb={4} size="2xl" {...props} />
+  ),
+  h2: (props: any) => (
+    <Heading fontWeight="700" mt={8} mb={2} size="lg" {...props} />
+  ),
   h3: (props: any) => <Heading mt={8} mb={2} size="md" {...props} />,
   h4: (props: any) => <Heading mt={8} mb={2} size="sm" {...props} />,
   p: (props: any) => <Text mt={2} mb={2} size="md" {...props} />,

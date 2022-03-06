@@ -45,11 +45,11 @@ const FileReference: FC<FileReferenceProps> = ({ path, action, code = "" }) => {
         }
       }}
       cursor="pointer"
-      bg="purple.200"
+      bg="whiteAlpha.200"
       _hover={{
-        bg: "purple.300",
+        bg: "whiteAlpha.300",
       }}
-      color="blackAlpha.600"
+      color="orange.200"
       transition="all .2s"
       tabIndex={0}
     >

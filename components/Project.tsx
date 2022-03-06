@@ -10,6 +10,7 @@ import {
 } from "@codesandbox/sandpack-react";
 import "@codesandbox/sandpack-react/dist/index.css";
 import { Box, Portal, Stack } from "@chakra-ui/react";
+import files from "./files";
 
 interface ProjectProps {
   theme?: SandpackThemeProp;
@@ -17,14 +18,14 @@ interface ProjectProps {
 
 const Project: FC<ProjectProps> = ({ children, theme = "monokai-pro" }) => {
   return (
-    <SandpackProvider template="react">
+    <SandpackProvider customSetup={{ files }} template="react">
       <Box pos="fixed" top={0} right={0} bottom={0} w="47vw">
         <SandpackLayout theme={theme}>
           <Stack spacing={0} h="100vh" w="100%">
             <Navigator />
             <SandpackCodeEditor
               showLineNumbers
-              customStyle={{ height: "50%" }}
+              customStyle={{ height: "50%", fontFamily: "poppins" }}
             />
             <SandpackPreview customStyle={{ height: "calc(50% - 40px)" }} />
           </Stack>

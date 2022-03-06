@@ -1,5 +1,17 @@
 // 1. import `extendTheme` function
 import { extendTheme, type ThemeConfig } from "@chakra-ui/react";
+import "@fontsource/inter/800.css";
+import "@fontsource/inter/700.css";
+import "@fontsource/inter/400.css";
+import "@fontsource/poppins/800.css";
+import "@fontsource/poppins/700.css";
+import "@fontsource/poppins/400.css";
+import "@fontsource/karla/800.css";
+import "@fontsource/karla/700.css";
+import "@fontsource/karla/400.css";
+// import "@fontsource/ibm-plex-mono/800.css";
+import "@fontsource/ibm-plex-mono/700.css";
+import "@fontsource/ibm-plex-mono/400.css";
 
 // 2. Add your color mode config
 const config: ThemeConfig = {
@@ -10,6 +22,10 @@ const config: ThemeConfig = {
 // 3. extend the theme
 const theme = extendTheme({
   config,
+  fonts: {
+    heading: "poppins, sans-serif",
+    body: "poppins, sans-serif",
+  },
   colors: {
     gray: {
       50: "#f3f2f8",
@@ -82,7 +98,6 @@ const theme = extendTheme({
         "2xl": {
           lineHeight: "110%",
           letterSpacing: ".05em",
-
           fontSize: {
             base: "2xl",
             md: "4xl",
