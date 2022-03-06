@@ -3,7 +3,11 @@ import Highlight, { defaultProps } from "prism-react-renderer";
 import theme from "prism-react-renderer/themes/vsDark";
 import Viewer from "./Viewer";
 import { Button, Flex, Stack, Tag } from "@chakra-ui/react";
-import { useSandpack, useSandpackTheme } from "@codesandbox/sandpack-react";
+import {
+  SandpackThemeProvider,
+  useSandpack,
+  useSandpackTheme,
+} from "@codesandbox/sandpack-react";
 import { SandpackLanguageSupport } from "./utils";
 
 interface CodeBlockProps {
@@ -20,9 +24,11 @@ const CodeBlock: FC<CodeBlockProps> = ({ path, code, language }) => {
     <Stack bg={theme.palette.defaultBackground} rounded="lg" spacing={-2}>
       <Flex p={2} justifyContent="space-between">
         <Tag
+          size="md"
           visibility={path ? "visible" : "hidden"}
-          bg="whiteAlpha.300"
-          color="whiteAlpha.800"
+          bg="none"
+          color="whiteAlpha.600"
+          rounded="lg"
         >
           {path}
         </Tag>
@@ -42,4 +48,12 @@ const CodeBlock: FC<CodeBlockProps> = ({ path, code, language }) => {
   );
 };
 
-export default CodeBlock;
+const CodeBlockWrapper: FC<CodeBlockProps> = (props) => {
+  return (
+    <SandpackThemeProvider theme="monokai-pro">
+      <CodeBlock {...props} />
+    </SandpackThemeProvider>
+  );
+};
+
+export default CodeBlockWrapper;

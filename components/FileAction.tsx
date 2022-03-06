@@ -53,7 +53,7 @@ const FileReference: FC<FileReferenceProps> = ({ path, action, code = "" }) => {
       tabIndex={0}
       alignItems="center"
     >
-      <Icon as={icons[action]} mr="1" />
+      <Icon fontSize="md" as={icons[action]} mr="1" />
       {path}
     </InlineCode>
   );

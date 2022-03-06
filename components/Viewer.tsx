@@ -51,7 +51,8 @@ const Viewer: FC<ViewerProps> = ({
 
   return (
     <Box
-      p={2}
+      p={4}
+      pl={showLineNumbers ? 0 : 4}
       bg={theme.palette.defaultBackground}
       rounded="lg"
       overflow="hidden"
