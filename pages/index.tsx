@@ -6,6 +6,7 @@ import Project from "../components/Project";
 import styles from "../styles/Home.module.css";
 import ReorderList from "../posts/reorder-list.mdx";
 import { MDXProvider } from "@mdx-js/react";
+import CodeBlock from "../components/CodeBlock";
 
 const mdxComponents = {
   h1: (props: any) => <Heading size="2xl" {...props} />,
@@ -13,6 +14,12 @@ const mdxComponents = {
   h3: (props: any) => <Heading size="md" {...props} />,
   h4: (props: any) => <Heading size="sm" {...props} />,
   code: (props: any) => <InlineCode {...props} />,
+  pre: (props: any) => {
+    const className = props.children?.props?.className || "";
+    const code = props.children?.props?.children?.trim() || "";
+    const language = className.replace(/language-/, "");
+    return <CodeBlock code={code} language={language} path={props.path} />;
+  },
 };
 
 const Home: NextPage = () => {

@@ -57,6 +57,7 @@ const ConnectedEditor: FC<ConnectedEditorProps> = ({}) => {
           language={getLanguageFromFile(sandpack.activePath) as any}
           defaultValue={code}
           onChange={(value: any) => updateCode(value || "")}
+          height="100%"
         />
       </div>
     </SandpackStack>

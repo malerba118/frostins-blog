@@ -16,6 +16,7 @@ interface EditorProps {
   defaultValue: MonacoEditorProps["defaultValue"];
   onChange?: MonacoEditorProps["onChange"];
   readOnly?: boolean;
+  height?: string;
 }
 
 const Editor: FC<EditorProps> = ({
@@ -23,12 +24,13 @@ const Editor: FC<EditorProps> = ({
   defaultValue,
   onChange,
   readOnly,
+  height = "auto",
 }) => {
   const containerRef = useRef<any>();
   const editorRef = useRef<any>();
 
   const updateHeight = () => {
-    if (readOnly) {
+    if (height === "auto") {
       const contentHeight = Math.min(
         1000,
         editorRef.current.getContentHeight()
@@ -37,18 +39,8 @@ const Editor: FC<EditorProps> = ({
     }
   };
 
-  //   useLayoutEffect(() => {
-  //     if (readOnly) {
-  //       const contentHeight = Math.min(
-  //         1000,
-  //         editorRef.current.getContentHeight()
-  //       );
-  //       containerRef.current.style.height = contentHeight + "px";
-  //     }
-  //   }, [readOnly]);
-
   return (
-    <Box ref={containerRef} width="100%" height="100%">
+    <Box ref={containerRef} width="100%" height={height}>
       <MonacoEditor
         onMount={(editor) => {
           editorRef.current = editor;
@@ -59,7 +51,9 @@ const Editor: FC<EditorProps> = ({
         language={language}
         theme="vs-dark"
         defaultValue={defaultValue}
-        onChange={onChange}
+        onChange={(val, ev) => {
+          onChange?.(val, ev);
+        }}
         options={{
           readOnly,
           scrollBeyondLastLine: false,
@@ -69,6 +63,9 @@ const Editor: FC<EditorProps> = ({
             enabled: false,
           },
           overviewRulerLanes: 0,
+          guides: {
+            indentation: false,
+          },
         }}
       />
     </Box>
