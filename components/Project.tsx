@@ -5,11 +5,10 @@ import {
   SandpackPreview,
   SandpackProvider,
   Navigator,
-  SandpackThemeProvider,
   SandpackThemeProp,
 } from "@codesandbox/sandpack-react";
 import "@codesandbox/sandpack-react/dist/index.css";
-import { Box, Portal, Stack } from "@chakra-ui/react";
+import { Box, Stack } from "@chakra-ui/react";
 import files from "./files";
 
 interface ProjectProps {
