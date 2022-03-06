@@ -1,27 +1,28 @@
 import InlineCode from "../components/InlineCode";
 import FileAction from "../components/FileAction";
+import FilePath from "../components/FilePath";
 import CodeBlock from "../components/CodeBlock";
 
 # Reorder a list using framer-motion
 
 Now let's add a new file <FileAction action="add" path="/foo.js" />.
-Now that <InlineCode>/foo.js</InlineCode> exists, we can go ahead and
+Now that <FilePath path="/foo.js" /> exists, we can go ahead and
 delete it <FileAction action="delete" path="/foo.js" />.
 
 ## Section Two
 
 Now this should be easier `const foo = 1;`
 
-{/* <CodeBlock code="const foo = 1;" path="/App.js" /> */}
+<CodeBlock code="const foo = 1;" path="/App.js" />
 
 Now let's add a new file <FileAction action="add" path="/foo.js" />.
-Now that <InlineCode>/foo.js</InlineCode> exists, we can go ahead and
+Now that <FilePath path="/foo.js" /> exists, we can go ahead and
 delete it <FileAction action="delete" path="/foo.js" />.
 
 ## Section Two
 
 Now this should be easier `const foo = 1;`
 
-```jsx path="App.js"
+```jsx path="/App.js" showLineNumbers
 const bar = <div>bar</div>;
 ```

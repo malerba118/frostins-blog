@@ -1,27 +1,70 @@
-import { FC } from "react";
-import Highlight, { defaultProps } from "prism-react-renderer";
-import theme from "prism-react-renderer/themes/vsDark";
-import Viewer from "./Viewer";
+import React, { FC } from "react";
 import { Button, Flex, Stack, Tag } from "@chakra-ui/react";
 import {
   SandpackThemeProvider,
   useSandpack,
   useSandpackTheme,
 } from "@codesandbox/sandpack-react";
-import { SandpackLanguageSupport } from "./utils";
+import { formatFilePath, SandpackLanguageSupport } from "./utils";
+import { EditorState } from "@codemirror/state";
+import { EditorView } from "@codemirror/view";
+import { lineNumbers } from "@codemirror/gutter";
+import {
+  getCodeMirrorLanguage,
+  getEditorTheme,
+  getSyntaxHighlight,
+} from "./utils";
+import { Box } from "@chakra-ui/react";
 
 interface CodeBlockProps {
   path: string;
   code: string;
   language: SandpackLanguageSupport;
+  showLineNumbers?: boolean;
 }
 
-const CodeBlock: FC<CodeBlockProps> = ({ path, code, language }) => {
+const CodeBlock: FC<CodeBlockProps> = ({
+  path,
+  code,
+  language = "typescript",
+  showLineNumbers = false,
+}) => {
   const { theme } = useSandpackTheme();
   const { sandpack } = useSandpack();
+  const editor = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const currentEditor = editor.current as HTMLDivElement;
+
+    const extensions = [
+      getCodeMirrorLanguage(language),
+      getEditorTheme(theme),
+      getSyntaxHighlight(theme),
+      EditorState.readOnly.of(true),
+      EditorView.editable.of(false),
+    ];
+
+    if (showLineNumbers) {
+      extensions.push(lineNumbers());
+    }
+
+    const state = EditorState.create({
+      doc: code,
+      extensions,
+    });
+    const view = new EditorView({ state, parent: currentEditor });
+
+    return () => view.destroy();
+  }, [editor.current]);
 
   return (
-    <Stack bg={theme.palette.defaultBackground} rounded="lg" spacing={-2}>
+    <Stack
+      bg={theme.palette.defaultBackground}
+      rounded="lg"
+      spacing={-2}
+      w="100%"
+      my={6}
+    >
       <Flex p={2} justifyContent="space-between">
         <Tag
           size="md"
@@ -30,7 +73,7 @@ const CodeBlock: FC<CodeBlockProps> = ({ path, code, language }) => {
           color="whiteAlpha.600"
           rounded="lg"
         >
-          {path}
+          {formatFilePath(path)}
         </Tag>
         <Button
           colorScheme="purple"
@@ -43,7 +86,15 @@ const CodeBlock: FC<CodeBlockProps> = ({ path, code, language }) => {
           Apply Changes
         </Button>
       </Flex>
-      <Viewer showLineNumbers code={code} language={language} />
+      <Box
+        p={4}
+        px={1}
+        bg={theme.palette.defaultBackground}
+        rounded="lg"
+        overflow="hidden"
+        tabIndex={-1}
+        ref={editor}
+      />
     </Stack>
   );
 };

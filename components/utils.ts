@@ -159,3 +159,10 @@ export const getCodeMirrorLanguage = (
 
   return options[extension];
 };
+
+export const formatFilePath = (path: string) => {
+  if (path.startsWith("/")) {
+    return path.substring(1);
+  }
+  return path;
+};

@@ -1,13 +1,14 @@
 import { ComponentType, FC } from "react";
 import { useSandpack } from "@codesandbox/sandpack-react";
 import InlineCode from "./InlineCode";
-import { Icon } from "@chakra-ui/react";
+import { Flex, Icon } from "@chakra-ui/react";
 import {
   RiFileAddLine,
   RiFileEditLine,
   RiFileTransferLine,
   RiFileReduceLine,
 } from "react-icons/ri";
+import { formatFilePath } from "./utils";
 
 interface FileReferenceProps {
   path: string;
@@ -29,7 +30,6 @@ const FileReference: FC<FileReferenceProps> = ({ path, action, code = "" }) => {
 
   return (
     <InlineCode
-      display="inline-flex"
       onClick={() => {
         if (action === "open") {
           sandpack.openFile(path);
@@ -45,16 +45,22 @@ const FileReference: FC<FileReferenceProps> = ({ path, action, code = "" }) => {
         }
       }}
       cursor="pointer"
-      bg="purple.100"
+      bg="purple.200"
       _hover={{
-        bg: "purple.200",
+        bg: "purple.300",
       }}
+      color="blackAlpha.600"
       transition="all .2s"
       tabIndex={0}
-      alignItems="center"
     >
-      <Icon fontSize="md" as={icons[action]} mr="1" />
-      {path}
+      <Icon
+        alignSelf="center"
+        fontSize="md"
+        as={icons[action]}
+        mr="1"
+        mb="-3px"
+      />
+      {formatFilePath(path)}
     </InlineCode>
   );
 };
