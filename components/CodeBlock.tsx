@@ -71,8 +71,16 @@ const CodeBlock: FC<CodeBlockProps> = ({
           size="md"
           visibility={path ? "visible" : "hidden"}
           bg="none"
-          color="whiteAlpha.600"
+          color="orange.200"
+          opacity={0.8}
+          cursor="pointer"
+          _hover={{
+            opacity: 1,
+          }}
           rounded="lg"
+          onClick={() => {
+            sandpack.openFile(path);
+          }}
         >
           {formatFilePath(path)}
         </Tag>
@@ -86,7 +94,7 @@ const CodeBlock: FC<CodeBlockProps> = ({
           }}
         >
           <Icon alignSelf="center" fontSize="md" as={RiFileEditLine} mr="1" />{" "}
-          Apply to Sandbox
+          Copy to Sandbox
         </Button>
       </Flex>
       <Box

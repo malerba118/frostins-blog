@@ -1,4 +1,4 @@
-import { ComponentType, FC } from "react";
+import { ComponentType, FC, ReactNode } from "react";
 import { useSandpack } from "@codesandbox/sandpack-react";
 import InlineCode from "./InlineCode";
 import { Flex, Icon } from "@chakra-ui/react";
@@ -10,10 +10,11 @@ import {
 } from "react-icons/ri";
 import { formatFilePath } from "./utils";
 
-interface FileReferenceProps {
+interface FileActionProps {
   path: string;
   action: FileActionType;
   code?: string;
+  label?: string;
 }
 
 type FileActionType = "open" | "add" | "update" | "delete";
@@ -25,7 +26,12 @@ const icons = {
   update: RiFileEditLine,
 };
 
-const FileReference: FC<FileReferenceProps> = ({ path, action, code = "" }) => {
+const FileAction: FC<FileActionProps> = ({
+  path,
+  action,
+  code = "",
+  label,
+}) => {
   const { sandpack } = useSandpack();
 
   return (
@@ -53,16 +59,10 @@ const FileReference: FC<FileReferenceProps> = ({ path, action, code = "" }) => {
       transition="all .2s"
       tabIndex={0}
     >
-      <Icon
-        alignSelf="center"
-        fontSize="md"
-        as={icons[action]}
-        mr="1"
-        mb="-3px"
-      />
-      {formatFilePath(path)}
+      <Icon alignSelf="center" fontSize="md" as={icons[action]} mr="1" />
+      {label || formatFilePath(path)}
     </InlineCode>
   );
 };
 
-export default FileReference;
+export default FileAction;

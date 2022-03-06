@@ -1,3 +1,4 @@
+import { HStack } from "@chakra-ui/react";
 import InlineCode from "../components/InlineCode";
 import FileAction from "../components/FileAction";
 import FilePath from "../components/FilePath";
@@ -26,3 +27,17 @@ Now this should be easier `const foo = 1;`
 ```jsx path="/App.js" showLineNumbers
 const bar = <div>bar</div>;
 ```
+
+<HStack>
+  <FileAction action="update" path="/foo.js" code="const foo = 1;"label="foo = 1;" />
+
+{" "}
+<FileAction
+  action="update"
+  path="/foo.js"
+  code="const foo = 2;"
+  label="foo = 2;"
+/>
+
+  <FileAction action="update" path="/foo.js" code="const foo = 3;" label="foo = 3;" />
+</HStack>
