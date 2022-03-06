@@ -64,7 +64,7 @@ const CodeBlock: FC<CodeBlockProps> = ({
       rounded="lg"
       spacing={-2}
       w="100%"
-      my={5}
+      my={6}
     >
       <Flex p={2} justifyContent="space-between">
         <Tag

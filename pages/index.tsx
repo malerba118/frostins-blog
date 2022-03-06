@@ -12,11 +12,11 @@ const mdxComponents = {
     <Heading fontWeight="800" mt={8} mb={4} size="2xl" {...props} />
   ),
   h2: (props: any) => (
-    <Heading fontWeight="700" mt={8} mb={2} size="lg" {...props} />
+    <Heading fontWeight="700" mt={8} mb={4} size="lg" {...props} />
   ),
-  h3: (props: any) => <Heading mt={8} mb={2} size="md" {...props} />,
-  h4: (props: any) => <Heading mt={8} mb={2} size="sm" {...props} />,
-  p: (props: any) => <Text mt={2} mb={2} size="md" {...props} />,
+  h3: (props: any) => <Heading mt={8} mb={4} size="md" {...props} />,
+  h4: (props: any) => <Heading mt={8} mb={4} size="sm" {...props} />,
+  p: (props: any) => <Text mt={4} mb={4} size="md" {...props} />,
   code: (props: any) => <InlineCode {...props} />,
   pre: (props: any) => {
     const className = props.children?.props?.className || "";
