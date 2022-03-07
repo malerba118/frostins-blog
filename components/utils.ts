@@ -166,3 +166,45 @@ export const formatFilePath = (path: string) => {
   }
   return path;
 };
+
+export const getAppWithCustomStiffness = (bounceStiffness: number): string => {
+  return `import { Center, ChakraProvider, List, ListItem } from "@chakra-ui/react";
+import { Reorder } from "framer-motion";
+import { useState } from "react";
+import User from "./User";
+
+export default function App() {
+  const [usernames, setUsernames] = useState([
+    "Austin Malerba",
+    "Kenneth Cassel",
+    "Karime Saad",
+  ]);
+  return (
+    <ChakraProvider>
+      <Center h="100vh">
+        <List
+          as={Reorder.Group}
+          axis="y"
+          values={usernames}
+          onReorder={setUsernames}
+          spacing={2}
+        >
+          {usernames.map((item) => (
+            <ListItem
+              as={Reorder.Item}
+              key={item}
+              value={item}
+              p={2}
+              bg="gray.100"
+              rounded="xl"
+              dragTransition={{ bounceStiffness: ${bounceStiffness} }}
+            >
+              <User username={item} />
+            </ListItem>
+          ))}
+        </List>
+      </Center>
+    </ChakraProvider>
+  );
+}`;
+};

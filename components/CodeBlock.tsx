@@ -64,39 +64,40 @@ const CodeBlock: FC<CodeBlockProps> = ({
       rounded="lg"
       spacing={-2}
       w="100%"
-      my={6}
+      my={8}
     >
-      <Flex p={2} justifyContent="space-between">
-        <Tag
-          size="md"
-          visibility={path ? "visible" : "hidden"}
-          bg="none"
-          color="orange.200"
-          opacity={0.8}
-          cursor="pointer"
-          _hover={{
-            opacity: 1,
-          }}
-          rounded="lg"
-          onClick={() => {
-            sandpack.openFile(path);
-          }}
-        >
-          {formatFilePath(path)}
-        </Tag>
-        <Button
-          colorScheme="whiteAlpha"
-          size="xs"
-          color="orange.200"
-          onClick={() => {
-            sandpack.openFile(path);
-            sandpack.updateFile(path, code || "");
-          }}
-        >
-          <Icon alignSelf="center" fontSize="md" as={RiFileEditLine} mr="1" />{" "}
-          Copy to Sandbox
-        </Button>
-      </Flex>
+      {path && (
+        <Flex p={2} justifyContent="space-between">
+          <Tag
+            size="md"
+            bg="none"
+            color="orange.200"
+            opacity={0.8}
+            cursor="pointer"
+            _hover={{
+              opacity: 1,
+            }}
+            rounded="lg"
+            onClick={() => {
+              sandpack.openFile(path);
+            }}
+          >
+            {formatFilePath(path)}
+          </Tag>
+          <Button
+            colorScheme="whiteAlpha"
+            size="xs"
+            color="orange.200"
+            onClick={() => {
+              sandpack.openFile(path);
+              sandpack.updateFile(path, code || "");
+            }}
+          >
+            <Icon alignSelf="center" fontSize="md" as={RiFileEditLine} mr="1" />{" "}
+            Copy to Sandbox
+          </Button>
+        </Flex>
+      )}
       <Box
         p={4}
         px={1}

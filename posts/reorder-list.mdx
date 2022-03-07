@@ -3,19 +3,31 @@ import InlineCode from "../components/InlineCode";
 import FileAction from "../components/FileAction";
 import FilePath from "../components/FilePath";
 import CodeBlock from "../components/CodeBlock";
+import { getAppWithCustomStiffness } from "../components/utils";
 
 # Reordering Lists with Chakra-UI
+
+## About This Tutorial
+
+This tutorial is designed first-and-foremost as a proof of concept for highlighly interactive tutorials.
+
+As you can see on the right side of the screen, there's an interactive playground that we'll be using to demonstrate code.
+
+Throughout the tutorial you will see buttons like this: <FileAction path="/package.json" action="open" />
+
+When you click them, they will perform operations on the sandbox on the right side of the screen.
+The buttons in this paragraph will open the specified file in the editor. For example, the following button will open <FileAction path="/App.js" action="open" /> and this next one will open <FileAction path="/package.json" action="open" />.
+
+## Objective
 
 Chakra UI is an awesome component library and it couples nicely with framer-motion, an awesome animation library.
 
 Today I'm going to show you how to turn a boring static list into a spicy reorderable list while preserving code-readability.
 
-As you can see on the right side of the screen, there's an interactive playground that we'll be using to demonstrate code.
+## Ok, Let's Do It
 
-## Starting Point
-
-To get us started, I've already gone ahead and implemented a basic list of usernames using chakra-ui.
-We're going to add to this throughout the tutorial to make it more interesting.
+To get us started, I've already gone ahead and implemented a basic list of usernames using chakra-ui's style props.
+We're going to add to this implementation throughout the tutorial to make it more interesting.
 
 ```jsx path="/App.js"
 import { Center, ChakraProvider, List, ListItem, Text } from "@chakra-ui/react";
@@ -46,7 +58,7 @@ export default function App() {
 The list is super boring right now so let's go ahead and add an avatar for each user.
 We've already included a package `react-jazzicon` in the <FileAction path="/package.json" action="open" /> file, which will allow us to render cool avatars.
 
-Let's make a new file, <FileAction action="add" path="/User.jsx" /> and in here we'll put a user component.
+Let's make a new file, <FileAction action="add" path="/User.jsx" />, and in here we'll put a user component.
 
 ```jsx path="/User.jsx"
 import { HStack, Text } from "@chakra-ui/react";
@@ -68,7 +80,7 @@ export default User;
 
 Even after applying these changes, we won't see any diffence in the ui yet because we're not using the `User` component anywhere.
 
-So now let's import `User` in `App.js` and put it inside of the `ListItem`.
+So now let's import `User` in `App.js` and render it within the `ListItem`.
 
 ```jsx path="/App.js"
 import { Center, ChakraProvider, List, ListItem, Text } from "@chakra-ui/react";
@@ -97,25 +109,107 @@ export default function App() {
 }
 ```
 
-## Section Two
+Sweet, now that we've got a better looking list, let's try to make it interactive. To do this we'll user framer-motion's `Reorder.Group` and `Reorder.Item` components.
 
-Now this should be easier `const foo = 1;`
+Strictly using framer-motion we could implement a reorderable list as follows.
 
-```jsx path="/App.js"
-const bar = <div>bar</div>;
+```jsx
+import { Reorder } from "framer-motion";
+import { useState } from "react";
+
+function List() {
+  const [items, setItems] = useState([0, 1, 2, 3]);
+
+  return (
+    <Reorder.Group axis="y" values={items} onReorder={setItems}>
+      {items.map((item) => (
+        <Reorder.Item key={item} value={item}>
+          {item}
+        </Reorder.Item>
+      ))}
+    </Reorder.Group>
+  );
+}
 ```
 
-<HStack>
-  <FileAction action="update" path="/foo.js" code="const foo = 1;"label="foo = 1;" />
+However, then we would lose the ability to style our components using chakra-ui.
 
-{" "}
+So instead, we'll use the `as` prop on our chakra components to render framer-motion's reorder components under the hood.
 
-<FileAction
-  action="update"
-  path="/foo.js"
-  code="const foo = 2;"
-  label="foo = 2;"
-/>
+```jsx path="/App.js"
+import { Center, ChakraProvider, List, ListItem } from "@chakra-ui/react";
+import { Reorder } from "framer-motion";
+import { useState } from "react";
+import User from "./User";
 
-  <FileAction action="update" path="/foo.js" code="const foo = 3;" label="foo = 3;" />
+export default function App() {
+  const [usernames, setUsernames] = useState([
+    "Austin Malerba",
+    "Kenneth Cassel",
+    "Karime Saad",
+  ]);
+  return (
+    <ChakraProvider>
+      <Center h="100vh">
+        <List
+          as={Reorder.Group}
+          axis="y"
+          values={usernames}
+          onReorder={setUsernames}
+          spacing={2}
+        >
+          {usernames.map((item) => (
+            <ListItem
+              as={Reorder.Item}
+              key={item}
+              value={item}
+              p={2}
+              bg="gray.100"
+              rounded="xl"
+            >
+              <User username={item} />
+            </ListItem>
+          ))}
+        </List>
+      </Center>
+    </ChakraProvider>
+  );
+}
+```
+
+Now, if you play around with the rendered list in the sandbox you'll notice that the list can be reordered and will animate smoothly.
+
+By using the `as` prop we're effectively able to combine the behaviors of two components into one.
+
+We've kept all of our list styling props, but are now also passing reorder props to the list components.
+
+However there's still some details that don't quite feel right.
+For example, while dragging an element sometimes it will go behind adjacent elements.
+Another issue is that the animation speed is rather slow and sluggish. Yet another issue is that when we hover over the elements, they don't _feel_ interactive even though they are.
+
+Let's start by addressing the slow animation speed.
+
+We can use the `dragTransition` prop to control the transition characteristics. Let's see how changing the `bounceStiffness` affects the feeling of the animation. Try clicking each option below and then reordering the list to see how the animation feels.
+
+<HStack my={8}>
+  <FileAction
+    action="update"
+    path="/App.js"
+    code={getAppWithCustomStiffness(50)}
+    label="bounceStiffness: 50"
+  />
+  <FileAction
+    action="update"
+    path="/App.js"
+    code={getAppWithCustomStiffness(700)}
+    label="bounceStiffness: 700"
+  />
+  <FileAction
+    action="update"
+    path="/App.js"
+    code={getAppWithCustomStiffness(2500)}
+    label="bounceStiffness: 2500"
+  />
 </HStack>
+
+You probably noticed that a `bounceStiffness` of 700 feels most appropriate, so that's what we'll stick with!

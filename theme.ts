@@ -134,27 +134,27 @@ const theme = extendTheme({
       },
       sizes: {
         xs: {
-          lineHeight: "175%",
+          lineHeight: "180%",
           color: "whiteAlpha.700",
           fontSize: "xs",
         },
         sm: {
-          lineHeight: "175%",
+          lineHeight: "180%",
           color: "whiteAlpha.700",
           fontSize: "sm",
         },
         md: {
-          lineHeight: "175%",
+          lineHeight: "180%",
           color: "whiteAlpha.700",
           fontSize: "md",
         },
         lg: {
-          lineHeight: "175%",
+          lineHeight: "180%",
           color: "whiteAlpha.700",
           fontSize: "lg",
         },
         xl: {
-          lineHeight: "175%",
+          lineHeight: "180%",
           color: "whiteAlpha.700",
           fontSize: "xl",
         },
