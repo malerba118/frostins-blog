@@ -111,7 +111,7 @@ export default function App() {
 
 Sweet, now that we've got a better looking list, let's try to make it interactive. To do this we'll user framer-motion's `Reorder.Group` and `Reorder.Item` components.
 
-Strictly using framer-motion we could implement a reorderable list as follows.
+Strictly using framer-motion, we could implement a reorderable list as follows.
 
 ```jsx
 import { Reorder } from "framer-motion";
@@ -201,8 +201,8 @@ We can use the `dragTransition` prop to control the transition characteristics. 
   <FileAction
     action="update"
     path="/App.js"
-    code={getAppWithCustomStiffness(700)}
-    label="bounceStiffness: 700"
+    code={getAppWithCustomStiffness(600)}
+    label="bounceStiffness: 600"
   />
   <FileAction
     action="update"
@@ -212,7 +212,7 @@ We can use the `dragTransition` prop to control the transition characteristics. 
   />
 </Wrap>
 
-You probably noticed that a `bounceStiffness` of 700 feels most appropriate, so that's what we'll stick with!
+You probably noticed that a `bounceStiffness` of 600 feels most appropriate, so that's what we'll stick with!
 
 Next, let's fix the z-index issue where the element we're actively dragging sometimes appears behind adjacent elements.
 
@@ -222,7 +222,6 @@ To do this we'll use framer-motion's `whileDrag` prop coupled with framer-motion
 import { Center, ChakraProvider, List, ListItem } from "@chakra-ui/react";
 import { Reorder } from "framer-motion";
 import { useState } from "react";
-import "./styles.css";
 import User from "./User";
 
 const variants = {
@@ -285,7 +284,6 @@ Ok, lastly let's make the list items feel more interactive. To do this we're goi
 import { Center, ChakraProvider, List, ListItem } from "@chakra-ui/react";
 import { Reorder } from "framer-motion";
 import { useState } from "react";
-import "./styles.css";
 import User from "./User";
 
 const variants = {
@@ -344,4 +342,6 @@ export default function App() {
 }
 ```
 
-Boom. now we've got a nice spicy list. Feel free to fork the sandbox with the button in the bottom right of the page!
+Boom. Now we've got a nice spicy list.
+
+Feel free to fork the sandbox using the button in the bottom right of this page!
