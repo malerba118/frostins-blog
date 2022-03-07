@@ -213,3 +213,135 @@ We can use the `dragTransition` prop to control the transition characteristics. 
 </Wrap>
 
 You probably noticed that a `bounceStiffness` of 700 feels most appropriate, so that's what we'll stick with!
+
+Next, let's fix the z-index issue where the element we're actively dragging sometimes appears behind adjacent elements.
+
+To do this we'll use framer-motion's `whileDrag` prop coupled with framer-motion variants.
+
+```jsx path="/App.js"
+import { Center, ChakraProvider, List, ListItem } from "@chakra-ui/react";
+import { Reorder } from "framer-motion";
+import { useState } from "react";
+import "./styles.css";
+import User from "./User";
+
+const variants = {
+  notDragging: {
+    zIndex: 0,
+  },
+  dragging: {
+    zIndex: 1,
+  },
+};
+
+export default function App() {
+  const [items, setItems] = useState([
+    "malerba118",
+    "compulves",
+    "dan_abramov",
+  ]);
+  return (
+    <ChakraProvider>
+      <Center h="100vh">
+        <List
+          as={Reorder.Group}
+          spacing={2}
+          axis="y"
+          values={items}
+          onReorder={setItems}
+        >
+          {items.map((item) => (
+            <ListItem
+              key={item}
+              as={Reorder.Item}
+              value={item}
+              p={2}
+              bg="gray.100"
+              rounded="xl"
+              dragTransition={{
+                bounceStiffness: 600,
+              }}
+              variants={variants}
+              initial="notDragging"
+              whileDrag="dragging"
+              position="relative"
+            >
+              <User username={item} />
+            </ListItem>
+          ))}
+        </List>
+      </Center>
+    </ChakraProvider>
+  );
+}
+```
+
+Now when we drag an element we set its z-index to 1 so that it will always be above ajacent elements.
+Note that we also added `postion="relative"` to the component. Without this, z-index would [not have any affect](https://css-tricks.com/almanac/properties/z/z-index/#:~:text=z%2Dindex%20only%20affects%20elements,positioned%20elements%20overlap%20each%20other.).
+
+Ok, lastly let's make the list items feel more interactive. To do this we're going to change the cursor when hovering over the list items and we're also going to change the background color and shadow while dragging an element.
+
+```jsx path="/App.js"
+import { Center, ChakraProvider, List, ListItem } from "@chakra-ui/react";
+import { Reorder } from "framer-motion";
+import { useState } from "react";
+import "./styles.css";
+import User from "./User";
+
+const variants = {
+  notDragging: {
+    zIndex: 0,
+    boxShadow: "none",
+    background: "var(--chakra-colors-gray-100)",
+  },
+  dragging: {
+    zIndex: 1,
+    boxShadow: "var(--chakra-shadows-lg)",
+    background: "var(--chakra-colors-pink-100)",
+  },
+};
+
+export default function App() {
+  const [items, setItems] = useState([
+    "malerba118",
+    "compulves",
+    "dan_abramov",
+  ]);
+  return (
+    <ChakraProvider>
+      <Center h="100vh">
+        <List
+          as={Reorder.Group}
+          spacing={2}
+          axis="y"
+          values={items}
+          onReorder={setItems}
+        >
+          {items.map((item) => (
+            <ListItem
+              key={item}
+              as={Reorder.Item}
+              value={item}
+              p={2}
+              bg="gray.100"
+              rounded="xl"
+              dragTransition={{
+                bounceStiffness: 600,
+              }}
+              variants={variants}
+              initial="notDragging"
+              whileDrag="dragging"
+              position="relative"
+              cursor="move"
+            >
+              <User username={item} />
+            </ListItem>
+          ))}
+        </List>
+      </Center>
+    </ChakraProvider>
+  );
+}
+```
+
+Boom. now we've got a nice spicy list. Feel free to fork the sandbox with the button in the bottom right of the page!
