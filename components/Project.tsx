@@ -18,7 +18,31 @@ interface ProjectProps {
 const Project: FC<ProjectProps> = ({ children, theme = "monokai-pro" }) => {
   return (
     <SandpackProvider customSetup={{ files }} template="react">
-      <Box w="53vw" overflow="hidden">
+      <Box
+        w="53vw"
+        overflow="hidden"
+        pos="relative"
+        _before={{
+          content: `""`,
+          zIndex: 10,
+          position: "fixed",
+          top: 0,
+          width: "53vw",
+          height: "70px",
+          background:
+            "linear-gradient(180deg,var(--chakra-colors-gray-800),transparent)",
+        }}
+        _after={{
+          content: `""`,
+          zIndex: 10,
+          position: "fixed",
+          bottom: 0,
+          width: "53vw",
+          height: "70px",
+          background:
+            "linear-gradient(180deg,transparent,var(--chakra-colors-gray-800))",
+        }}
+      >
         {children}
       </Box>
       <Box pos="fixed" top={0} right={0} bottom={0} w="47%">
