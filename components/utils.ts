@@ -175,9 +175,9 @@ import User from "./User";
 
 export default function App() {
   const [usernames, setUsernames] = useState([
-    "Austin Malerba",
-    "Kenneth Cassel",
-    "Karime Saad",
+    "malerba118",
+    "compulves",
+    "dan_abramov"
   ]);
   return (
     <ChakraProvider>

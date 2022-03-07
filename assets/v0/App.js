@@ -3,9 +3,9 @@ import { useState } from "react";
 
 export default function App() {
   const [usernames, setUsernames] = useState([
-    "Austin Malerba",
-    "Joel Malerba",
-    "Miles Malerba",
+    "malerba118",
+    "compulves",
+    "dan_abramov",
   ]);
   return (
     <ChakraProvider>
