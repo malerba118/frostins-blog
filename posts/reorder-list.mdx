@@ -1,15 +1,15 @@
-import { HStack } from "@chakra-ui/react";
+import { Wrap } from "@chakra-ui/react";
 import InlineCode from "../components/InlineCode";
 import FileAction from "../components/FileAction";
 import FilePath from "../components/FilePath";
 import CodeBlock from "../components/CodeBlock";
 import { getAppWithCustomStiffness } from "../components/utils";
 
-# Reordering Lists with Chakra-UI
+# Reordering Lists in Chakra-UI
 
 ## About This Tutorial
 
-This tutorial is designed first-and-foremost as a proof of concept for highlighly interactive tutorials.
+This tutorial is designed first-and-foremost as a proof of concept for highly interactive tutorials.
 
 As you can see on the right side of the screen, there's an interactive playground that we'll be using to demonstrate code.
 
@@ -191,7 +191,7 @@ Let's start by addressing the slow animation speed.
 
 We can use the `dragTransition` prop to control the transition characteristics. Let's see how changing the `bounceStiffness` affects the feeling of the animation. Try clicking each option below and then reordering the list to see how the animation feels.
 
-<HStack my={8}>
+<Wrap my={8} spacing={2}>
   <FileAction
     action="update"
     path="/App.js"
@@ -210,6 +210,6 @@ We can use the `dragTransition` prop to control the transition characteristics. 
     code={getAppWithCustomStiffness(2500)}
     label="bounceStiffness: 2500"
   />
-</HStack>
+</Wrap>
 
 You probably noticed that a `bounceStiffness` of 700 feels most appropriate, so that's what we'll stick with!

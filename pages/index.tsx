@@ -36,7 +36,7 @@ const mdxComponents = {
 const Home: NextPage = () => {
   return (
     <Project>
-      <Box p={16}>
+      <Box p={{ base: 4, md: 16 }}>
         {/* <Heading lineHeight={2}>Reorder a list with framer-motion</Heading>
         <Text>
           Today we're going to learn how to reorder a list with framer-motion

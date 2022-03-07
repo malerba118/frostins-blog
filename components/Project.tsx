@@ -18,7 +18,10 @@ interface ProjectProps {
 const Project: FC<ProjectProps> = ({ children, theme = "monokai-pro" }) => {
   return (
     <SandpackProvider customSetup={{ files }} template="react">
-      <Box pos="fixed" top={0} right={0} bottom={0} w="47vw">
+      <Box w="53vw" overflow="hidden">
+        {children}
+      </Box>
+      <Box pos="fixed" top={0} right={0} bottom={0} w="47%">
         <SandpackLayout theme={theme}>
           <Stack spacing={0} h="100vh" w="100%">
             <Navigator />
@@ -30,7 +33,6 @@ const Project: FC<ProjectProps> = ({ children, theme = "monokai-pro" }) => {
           </Stack>
         </SandpackLayout>
       </Box>
-      <Box w="53vw">{children}</Box>
     </SandpackProvider>
   );
 };
