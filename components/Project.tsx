@@ -10,6 +10,7 @@ import {
 import "@codesandbox/sandpack-react/dist/index.css";
 import { Box, Stack } from "@chakra-ui/react";
 import files from "./files";
+import ScrollContainer from "./ScrollContainer";
 
 interface ProjectProps {
   theme?: SandpackThemeProp;
@@ -18,33 +19,9 @@ interface ProjectProps {
 const Project: FC<ProjectProps> = ({ children, theme = "monokai-pro" }) => {
   return (
     <SandpackProvider customSetup={{ files }} template="react">
-      <Box
-        w="53vw"
-        overflow="hidden"
-        pos="relative"
-        _before={{
-          content: `""`,
-          zIndex: 10,
-          position: "fixed",
-          top: 0,
-          width: "53vw",
-          height: "70px",
-          background:
-            "linear-gradient(180deg,var(--chakra-colors-gray-800),transparent)",
-        }}
-        _after={{
-          content: `""`,
-          zIndex: 10,
-          position: "fixed",
-          bottom: 0,
-          width: "53vw",
-          height: "70px",
-          background:
-            "linear-gradient(180deg,transparent,var(--chakra-colors-gray-800))",
-        }}
-      >
+      <ScrollContainer h="100vh" w="53vw">
         {children}
-      </Box>
+      </ScrollContainer>
       <Box pos="fixed" top={0} right={0} bottom={0} w="47%">
         <SandpackLayout theme={theme}>
           <Stack spacing={0} h="100vh" w="100%">
