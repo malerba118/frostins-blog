@@ -4,7 +4,7 @@ import FileAction from "../components/FileAction";
 import InlineCode from "../components/InlineCode";
 import Project from "../components/Project";
 import styles from "../styles/Home.module.css";
-import ReorderList from "../posts/reorder-list.mdx";
+import TutorialMdx from "../posts/reorder-list.mdx";
 import CodeBlock from "../components/CodeBlock";
 
 const mdxComponents = {
@@ -37,7 +37,7 @@ const Home: NextPage = () => {
   return (
     <Project>
       <Box p={{ base: 4, md: 16 }}>
-        <ReorderList components={mdxComponents} />
+        <TutorialMdx components={mdxComponents} />
       </Box>
     </Project>
   );
